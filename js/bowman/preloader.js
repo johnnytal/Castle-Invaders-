@@ -14,8 +14,6 @@ preloader.prototype = {
         loadingBar.anchor.setTo(0, 0.5);
         this.load.setPreloadSprite(loadingBar);
 
-        this.game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-       
         this.game.load.atlas('button', 'assets/images/ui.png', 'assets/images/buttons.json');
           
         this.game.load.image("replay", "assets/images/replay.png");

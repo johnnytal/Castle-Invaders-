@@ -29,15 +29,16 @@ menu.prototype = {
         arrows.setAll('checkWorldBounds', true);
         arrows.setAll('outOfBoundsKill', true); 
         
-        arrow = this.add.image(WIDTH/2 - 65, 32, "arrow");
+        arrow = this.add.image(WIDTH/2 - 15, 32, "arrow");
         arrow.scale.set(6.7, 1.4);
         arrow.aplha = 0.8;
         game.add.tween(arrow).from( { x: -2000 }, 2000, Phaser.Easing.Cubic.In, true);
         
-        nameLabel = this.game.add.text(25, 15, 'C  A  S  T  L  E      I  N  V  A  D  E  R  S !', {
+        nameLabel = this.game.add.text(50, 15, 'C  A  S  T  L  E      I  N  V  A  D  E  R  S !', {
             font: '42px ' + font, fill: 'purple', fontWeight: 'bold', align: 'center'
         });
         nameLabel.alpha = 0;
+        nameLabel.setShadow(3, 3, 'rgba(0, 105, 0 ,0.4)', 5);
         game.add.tween(nameLabel).to( { alpha: 1 }, 2850, Phaser.Easing.Linear.None, true);
    
         headerLabel = this.game.add.text(60, 140, 'R E A D Y', {
@@ -62,11 +63,6 @@ menu.prototype = {
         howToText.alpha = 0;
         game.add.tween(howToText).to( { alpha: 1 }, 3000, Phaser.Easing.Linear.None, true);
         
-        creditText = this.game.add.text(570, 340, 
-            "A game by Johnny Tal \n w w w . j o h n n y t a l . c o m", {
-            font: '10px ' + font, fill: 'darkblue', fontWeight: 'normal', align: 'center'
-        });
-        
         clicks = [ game.add.audio('sfxClick1'), game.add.audio('sfxClick2') ]; // click sounds
         
         shots = [ // shot sounds
@@ -76,7 +72,7 @@ menu.prototype = {
 
         start_btn = this.add.button(this.game.world.centerX - 130, 110, 'button', this.startGame, this, 'play','play_hover','play_click');
         start_btn.input.useHandCursor = true;
-        start_btn.scale.set(0.42, 0.42);
+        start_btn.scale.set(0.45, 0.45);
         
         inst_btn = this.add.button(520, 240, 'button', this.startInfo, this, 'inst','inst_hover','inst_click');
         inst_btn.input.useHandCursor = true;
@@ -86,7 +82,7 @@ menu.prototype = {
         record_btn.input.useHandCursor = true;
         record_btn.scale.set(0.3, 0.3);
 
-        audio_btn = this.add.button(660, 15, 'button', this.toggleSound, this, 'audio_on','audio_on','audio_on');
+        audio_btn = this.add.button(660, 350, 'button', this.toggleSound, this, 'audio_on','audio_on','audio_on');
         audio_btn.input.useHandCursor = true;
         audio_btn.scale.set(0.2, 0.2);
         if (game.sound.mute) audio_btn.frame = 10;

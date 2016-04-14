@@ -4,8 +4,8 @@ var gameMain = function(game){
     
     bowFrame = 0;
 
-    ARROW_BASE_SPEED = 180; // increase for faster arrows
-    ARROW_GRAVITY_Y = 750; // increase for heavier arrows
+    ARROW_BASE_SPEED = 160; // increase for faster arrows
+    ARROW_GRAVITY_Y = 800; // increase for heavier arrows
 
     CASTLE_MAX_HP = 300; // your castle's hit points
 
@@ -84,15 +84,14 @@ gameMain.prototype = {
             font: '20px ' + font, fill: 'darkgreen', fontWeight: 'normal', align: 'center'
         });
         coin = this.add.image(18, 20, 'coin');
-        coin.scale.set(0.7, 0.7);
         
         var score_best = attr.bestScores[0];
-        if (score_best == null) score_best = "N/A";
+        if (!score_best >= 0) score_best = "N/A";
             
-        bestLabel = this.add.text(666,  70, score_best, {
+        bestLabel = this.add.text(666, 70, score_best, {
             font: '14px ' + font, fill: 'darkred', fontWeight: 'normal', align: 'center'
         });
-        var medal = this.game.add.image(676, 90, 'medals');
+        var medal = this.game.add.image(648, 70, 'medals');
         medal.scale.set(0.5, 0.5);
         
         var cloudImg = this.add.image(650, 10, 'cloud2');
@@ -110,12 +109,6 @@ gameMain.prototype = {
             font: '21px ' + font, fill: 'darkblue', fontWeight: 'normal', align: 'center'
         });
         var watch = this.add.image(15, HEIGHT - 38, 'bonus_clock');
-        watch.scale.set(0.8, 0.8);
-        
-        pauseLabel = this.add.text(215, 100, 'Game Paused\n Click anywhere to continue', { 
-             font: '24px ' + font, fill: '#ff0000', fontWeight: 'normal', align: 'center'
-        });
-        pauseLabel.visible = false;
 
         exit_btn = this.add.button(655, 350, 'button', function(){
             end_game('lost');
@@ -125,24 +118,7 @@ gameMain.prototype = {
         exit_btn.onInputOver.add(function(){ button = true; }, this);
         exit_btn.onInputOut.add(function(){ button = false; }, this);
 
-        pause_btn = game.add.button(610, 350, 'button', function(){
-            game.paused = true;
-            pauseLabel.visible = true;
-            button = false;
-        }, this, 'pause','pause','pause');
-        pause_btn.input.useHandCursor = true;
-        pause_btn.scale.set(0.2, 0.2);
-        //pause_btn.onInputOver.add(function(){ button = true; }, this);
-        //pause_btn.onInputOut.add(function(){ button = false; }, this);
-
         modal = new gameModal(game);
-        
-        game.input.onDown.add(function(){
-            if (game.paused){ 
-                game.paused = false;
-                pauseLabel.visible = false;
-            }     
-        }, this); // release pause state
 
         timer_add_enemy();
         timer_end_level();
@@ -454,7 +430,6 @@ function update_castle(hp){
          font: '22px ' + font, fill: 'red', fontWeight: 'normal', align: 'center'
     });
     var heartImg = game.add.image(hpLostText.x - 25, hpLostText.y + 5, 'heart');
-    heartImg.scale.set(0.75, 0.75);
     
     game.add.tween(hpLostText).from( { y: HEIGHT - 100 }, 300, Phaser.Easing.Linear.In, true);
     game.add.tween(hpLostText).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
@@ -622,7 +597,6 @@ function tween_score(score, color, object){
     });
     
     coin = game.add.image(pointsText.x - 25, pointsText.y, 'coin');
-    coin.scale.set(0.6, 0.6);
 
     game.add.tween(pointsText).from( { y: HEIGHT + 100 }, 2200, Phaser.Easing.Linear.In, true);
     game.add.tween(pointsText).to( { alpha: 0 }, 3000, Phaser.Easing.Linear.None, true);
@@ -637,7 +611,7 @@ function tween_time(time, color, object){
     });
     
     clock = game.add.image(timeText.x - 25, timeText.y, 'bonus_clock');
-    clock.scale.set(0.6, 0.6);
+    clock.scale.set(0.8, 0.8);
     
     game.add.tween(timeText).from( { y: object.body.y }, 2000, Phaser.Easing.Linear.In, true);
     game.add.tween(timeText).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true); 

@@ -26,12 +26,12 @@ boot.prototype = {
           this.game.load.audio('sfxMenu', 'assets/audio/Reggae_ident.mp3'); 
           
           this.game.load.image("loading", "assets/images/loading.png");
-          this.game.load.image("bg", "assets/images/bg.png");
+          this.game.load.image("bg", "assets/images/bg.jpg");
           
           this.game.load.spritesheet("castle", "assets/images/tower.png", 120, 107);
     },
     create: function(){
-        game.stage.backgroundColor = '#B8CDC4';
+        game.stage.backgroundColor = '#B9CEC5';
         
         menuSfx = game.add.audio('sfxMenu');
         menuSfx.play();
