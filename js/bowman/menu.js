@@ -101,11 +101,11 @@ menu.prototype = {
 
     toggleSound: function() {
         if (game.sound.mute == false){
-            audio_btn = this.add.button(660, 15, 'button', this.toggleSound, this, 'audio_off','audio_off','audio_off');
+            audio_btn = this.add.button(660, 350, 'button', this.toggleSound, this, 'audio_off','audio_off','audio_off');
             game.sound.mute = true;
         }
         else{
-            audio_btn = this.add.button(660, 15, 'button', this.toggleSound, this, 'audio_on','audio_on','audio_on');
+            audio_btn = this.add.button(660, 350, 'button', this.toggleSound, this, 'audio_on','audio_on','audio_on');
             game.sound.mute = false;
             clicks[0].play();
         }

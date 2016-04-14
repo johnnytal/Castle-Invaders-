@@ -67,14 +67,6 @@ gameMain.prototype = {
         clouds.alpha = 0.8;
 
         createClouds();
-        
-        /* 
-        arrows.setAll('checkWorldBounds', true);
-        arrows.setAll('outOfBoundsKill', true); 
-  
-        // with this uncommented arrows out of bounds will die, meaning they won't fall back when you shoot up, 
-        // making the "sideBounds" group and its collision method irrelevant 
-        */
 
         castle_hp = CASTLE_MAX_HP;
         attr.currentLevel = 1;
@@ -86,7 +78,7 @@ gameMain.prototype = {
         coin = this.add.image(18, 20, 'coin');
         
         var score_best = attr.bestScores[0];
-        if (!score_best >= 0) score_best = "N/A";
+        if (score_best == null || score_best == 'null' || score_best == undefined || score_best == 'undefined') score_best = "N/A";
             
         bestLabel = this.add.text(666, 70, score_best, {
             font: '14px ' + font, fill: 'darkred', fontWeight: 'normal', align: 'center'
@@ -96,7 +88,7 @@ gameMain.prototype = {
         
         var cloudImg = this.add.image(650, 10, 'cloud2');
         cloudImg.scale.set(0.62,0.85);
-        lvl_number = this.add.sprite(689, 35, 'numbers');
+        lvl_number = this.add.sprite(685, 35, 'numbers');
         lvl_number.frame = (attr.currentLevel - 1);
         lvl_number.anchor.set(1, 0.5);
 
