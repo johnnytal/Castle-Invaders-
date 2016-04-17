@@ -72,19 +72,15 @@ menu.prototype = {
 
         start_btn = this.add.button(this.game.world.centerX - 130, 110, 'button', this.startGame, this, 'play','play_hover','play_click');
         start_btn.input.useHandCursor = true;
-        start_btn.scale.set(0.45, 0.45);
+        start_btn.scale.set(0.47, 0.47);
         
-        inst_btn = this.add.button(520, 240, 'button', this.startInfo, this, 'inst','inst_hover','inst_click');
+        inst_btn = this.add.button(650, 270, 'button', this.startInfo, this, 'inst','inst_hover','inst_click');
         inst_btn.input.useHandCursor = true;
-        inst_btn.scale.set(0.3, 0.3);
+        inst_btn.scale.set(0.25, 0.25);
 
-        record_btn = this.add.button(585, 240, 'button', this.startRecord, this, 'record','record_hover','record_click');
-        record_btn.input.useHandCursor = true;
-        record_btn.scale.set(0.3, 0.3);
-
-        audio_btn = this.add.button(660, 350, 'button', this.toggleSound, this, 'audio_on','audio_on','audio_on');
+        audio_btn = this.add.button(650, 330, 'button', this.toggleSound, this, 'audio_on','audio_on','audio_on');
         audio_btn.input.useHandCursor = true;
-        audio_btn.scale.set(0.2, 0.2);
+        audio_btn.scale.set(0.25, 0.25);
         if (game.sound.mute) audio_btn.frame = 10;
         
         no_shots_on_buttons();
@@ -101,16 +97,16 @@ menu.prototype = {
 
     toggleSound: function() {
         if (game.sound.mute == false){
-            audio_btn = this.add.button(660, 350, 'button', this.toggleSound, this, 'audio_off','audio_off','audio_off');
+            audio_btn = this.add.button(650, 330, 'button', this.toggleSound, this, 'audio_off','audio_off','audio_off');
             game.sound.mute = true;
         }
         else{
-            audio_btn = this.add.button(660, 350, 'button', this.toggleSound, this, 'audio_on','audio_on','audio_on');
+            audio_btn = this.add.button(650, 330, 'button', this.toggleSound, this, 'audio_on','audio_on','audio_on');
             game.sound.mute = false;
             clicks[0].play();
         }
          
-        audio_btn.scale.set(0.2, 0.2);
+        audio_btn.scale.set(0.25, 0.25);
         audio_btn.input.useHandCursor = true;
         no_shots_on_buttons();
     },
@@ -119,15 +115,10 @@ menu.prototype = {
         game.state.start('Instructions');
         clicks[0].play();
     }, 
-    
-    startRecord: function() {
-        game.state.start('Records');
-        clicks[0].play();
-    }, 
 };
 
 function no_shots_on_buttons(){
-    buttons = [audio_btn, record_btn, inst_btn, start_btn];
+    buttons = [audio_btn, inst_btn, start_btn];
    
     for (n = 0; n < buttons.length; n++){
         buttons[n].onInputOver.add(function(){ button = true; }, this);

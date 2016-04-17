@@ -77,8 +77,8 @@ gameMain.prototype = {
         });
         coin = this.add.image(18, 20, 'coin');
         
-        var score_best = attr.bestScores[0];
-        if (score_best == null || score_best == 'null' || score_best == undefined || score_best == 'undefined') score_best = "N/A";
+        var score_best = localStorage.getItem("invaders-bestScore");
+        if (score_best == null || score_best == 'null' || score_best == undefined || score_best == 'undefined') score_best = "0";
             
         bestLabel = this.add.text(666, 70, score_best, {
             font: '14px ' + font, fill: 'darkred', fontWeight: 'normal', align: 'center'
@@ -86,9 +86,9 @@ gameMain.prototype = {
         var medal = this.game.add.image(648, 70, 'medals');
         medal.scale.set(0.5, 0.5);
         
-        var cloudImg = this.add.image(650, 10, 'cloud2');
+        var cloudImg = this.add.image(643, 10, 'cloud2');
         cloudImg.scale.set(0.62,0.85);
-        lvl_number = this.add.sprite(685, 35, 'numbers');
+        lvl_number = this.add.sprite(680, 35, 'numbers');
         lvl_number.frame = (attr.currentLevel - 1);
         lvl_number.anchor.set(1, 0.5);
 
@@ -233,27 +233,11 @@ function arrow_hit_bonus(_bonus, _arrow){
 function bonus_hit_castle(_castle, _bonus){
 
     for(var e in attr.bonusAttr){
-
-        if (_bonus.key === attr.bonusAttr[String(e)].name){ // when a bonus hit castle
-            
-            bonuses[_bonus.index].damage('noScore'); // kill bonus
-                
-            update_castle( attr.bonusAttr[String(e)].strength ); // and affect castle's hp
-        }
+        var color;
         
         if (_bonus.key === 'bonus_heal'){
             healSfx.play();
-        }
-        
-        else if (_bonus.key === 'bonus_clock'){
-            
-            var time_to_add = 6; // the time to add if a clock hits you
-            time_left += ( time_to_add / get_object_length(attr.bonusAttr) ); // will add *3 seconds because of the loop, so we divide it
-            timeLabel.text = format_time(time_left); 
-            
-            cookooSfx.play(); 
-            
-            tween_time(time_to_add, 'darkblue', _bonus);   
+            color = 'darkgreen';
         }
         
         else if (_bonus.key === 'bonus_bomb'){
@@ -266,7 +250,27 @@ function bonus_hit_castle(_castle, _bonus){
             
             whistleSfx.stop();
             explodeSfx.play(); 
+            
+            color = 'darkred';
         }
+        
+        else if (_bonus.key === 'bonus_clock'){
+            
+            var time_to_add = 6; // the time to add if a clock hits you
+            time_left += ( time_to_add / get_object_length(attr.bonusAttr) ); // will add *3 seconds because of the loop, so we divide it
+            timeLabel.text = format_time(time_left); 
+            
+            cookooSfx.play(); 
+            
+            tween_time(time_to_add, 'darkblue', _bonus);   
+        }
+
+        if (_bonus.key === attr.bonusAttr[String(e)].name){ // when a bonus hit castle
+            
+            bonuses[_bonus.index].damage('noScore'); // kill bonus
+            
+            update_castle( attr.bonusAttr[String(e)].strength, color); // and affect castle's hp
+        } 
     }      
 }
 
@@ -282,7 +286,7 @@ function enemy_hit_castle(_castle, _enemy){
 
             enemies[_enemy.index].damage('noScore'); // kill enemy without scoring the player
 
-            update_castle( get_enemy_strength(e) );
+            update_castle( get_enemy_strength(e) ,'red');
 
             game.camera.y = 0; // shake the camera a little bit
             game.add.tween(game.camera).to({ y: +5 }, 35, Phaser.Easing.Sinusoidal.InOut, false, 0, 3, true).start();
@@ -402,7 +406,7 @@ function create_bonus(){
     )); 
 }
 
-function update_castle(hp){
+function update_castle(hp, color){
     castle_hp -= hp; // get the strength of the hitting object and subtract it from castle hp
     
     var frame =  Math.round (( CASTLE_MAX_HP / castle_hp ) / 3); // change the castle's frame based on its hp
@@ -419,7 +423,7 @@ function update_castle(hp){
     castleLabel.text = castle_hp;
     
     hpLostText = game.add.text(castle.body.x + (castle.width/2) - 15, HEIGHT - 210, -hp, { 
-         font: '22px ' + font, fill: 'red', fontWeight: 'normal', align: 'center'
+         font: '22px ' + font, fill: color, fontWeight: 'normal', align: 'center'
     });
     var heartImg = game.add.image(hpLostText.x - 25, hpLostText.y + 5, 'heart');
     
@@ -507,18 +511,14 @@ function end_game(reason){
 }
 
 function save_score(){ // get your score and save it to webstorge 
-    attr.bestScores.push(attr.gameScore);
-    
-    var best = attr.bestScores.sort(function(a, b){ return b-a; });
-    
-    var PLACES_TO_SAVE = 3; // change this to save more (or less) then 3 places to the webstorage
-    
-    for (n = 1; n < PLACES_TO_SAVE + 1; n++){
-        localStorage.setItem( "invaders-bestScore"+(n), best[n-1] );   
-    }
+     if (attr.gameScore > attr.bestScore || attr.bestScore == 'null' || attr.bestScore == null){
+        localStorage.setItem("invaders-bestScore", attr.gameScore);  // if it's the best score ever
+        return true;
+     }
 
-    if (attr.gameScore == best[0]) return true; // if it's the best score ever
-    else{ return false; }
+     else{ 
+         return false; 
+     }    
 }
 
 function kill_everyone(){

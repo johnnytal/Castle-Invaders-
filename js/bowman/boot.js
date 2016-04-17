@@ -13,7 +13,6 @@ window.onload = function(){
     game.state.add("Menu", menu);
     game.state.add("Game", gameMain);
     game.state.add("Instructions", inst);
-    game.state.add("Records", records);
     game.state.add("Game_over", game_over);
     
     game.state.start("Boot");  
