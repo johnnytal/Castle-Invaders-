@@ -5,7 +5,7 @@ var gameMain = function(game){
     bowFrame = 0;
 
     ARROW_BASE_SPEED = 150; // increase for faster arrows
-    ARROW_GRAVITY_Y = 800; // increase for heavier arrows
+    ARROW_GRAVITY_Y = 770; // increase for heavier arrows
 
     CASTLE_MAX_HP = 300; // your castle's hit points
 
@@ -181,8 +181,8 @@ gameMain.prototype = {
 };
 
 function arrow_hit_cloud(_cloud){
-    var random = game.rnd.integerInRange(0,2);
-    if (random = 1) _cloud.kill();
+    var random = game.rnd.integerInRange(0,3);
+    if (random == 1) _cloud.kill();
 }
 
 function bow_and_arrow_updates(){
@@ -333,7 +333,7 @@ function timer_end_level(){
             timeLabel.text = format_time(time_left);
             
             if (time_left < 6){
-                timeLabel.fill = 'green';
+                timeLabel.fill = 'pink';
             }
         }
 
@@ -479,7 +479,8 @@ function level_end_modal(level) {
                 type: "image",
                 content: "window",
                 offsetY: 0,
-                offsetX: 0
+                offsetX: 0,
+                contentScale: 1.3
             },
             {
                 type: "text",

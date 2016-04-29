@@ -35,7 +35,7 @@ menu.prototype = {
         game.add.tween(arrow).from( { x: -2000 }, 2000, Phaser.Easing.Cubic.In, true);
         
         nameLabel = this.game.add.text(15, 15, 'C  A  S  T  L  E      I  N  V  A  D  E  R  S !', {
-            font: '31px ' + font, fill: 'purple', fontWeight: 'bold', align: 'center'
+            font: '31px ' + font, fill: 'pink', fontWeight: 'bold', align: 'center'
         });
         nameLabel.alpha = 0;
         nameLabel.setShadow(3, 3, 'rgba(0, 105, 0 ,0.4)', 5);
@@ -56,9 +56,9 @@ menu.prototype = {
         });
         game.add.tween(headerLabel3).from( { x: -2000 }, 2000, Phaser.Easing.Cubic.In, true);
 
-        howToText = this.game.add.text(355, 95, 
-            "H o w  t o  s h o o t ?\n 1. click anywhere in the game window \n 2. move pointer back to gain strength\n 3. move pointer sideways to aim \n 4. release to shoot !", {
-            font: '12px ' + font, fill: 'brown', fontWeight: 'normal', align: 'center'
+        howToText = this.game.add.text(345, 125, 
+            "- Swipe  back  to  gain  momentum -\n - Swipe  sideways  to  aim -\n - Release  to  shoot ! -", {
+            font: '14px ' + font, fill: 'brown', fontWeight: 'normal', align: 'center'
         });
         howToText.alpha = 0;
         game.add.tween(howToText).to( { alpha: 1 }, 3000, Phaser.Easing.Linear.None, true);

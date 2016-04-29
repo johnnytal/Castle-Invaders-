@@ -43,7 +43,7 @@ preloader.prototype = {
         
         this.game.load.spritesheet("audioBtn","assets/images/audioBtn.png", 183 ,190);
         this.game.load.spritesheet("instBtn","assets/images/instBtn.png", 183 ,190);
-        this.game.load.spritesheet("playBtn","assets/images/playBtn.png", 183 ,190);
+        this.game.load.spritesheet("playBtn","assets/images/playBtn.png", 180 ,190);
         this.game.load.spritesheet("homeBtn","assets/images/homeBtn.png", 183 ,190);
         this.game.load.spritesheet("exit_btn","assets/images/exit_btn.png", 183 ,190);
 
