@@ -5,51 +5,72 @@ attr = {
     levelAttr: {
         "level1":{
             name: "Level: 1",
-            time: "50",
-            strongEnemyChance: 30,
-            minInterval: 900,
-            maxInterval: 3400
+            time: "20",
+            strongEnemyChance: 15,
+            minInterval: 1100,
+            maxInterval: 3200
         },
         "level2":{
             name: "Level: 2",
-            time: "75",
-            strongEnemyChance: 55,
-            minInterval: 700,
-            maxInterval: 3300
+            time: "45",
+            strongEnemyChance: 35,
+            minInterval: 900,
+            maxInterval: 3400
         },
         "level3":{
             name: "Level: 3",
-            time: "100",
-            strongEnemyChance: 90,
-            minInterval: 550,
-            maxInterval: 3100
+            time: "55",
+            strongEnemyChance: 55,
+            minInterval: 800,
+            maxInterval: 3350
         },
         "level4":{
             name: "Level: 4",
-            time: "120",
-            strongEnemyChance: 115,
-            minInterval: 400,
-            maxInterval: 2500
+            time: "65",
+            strongEnemyChance: 65,
+            minInterval: 700,
+            maxInterval: 3300
         },
         "level5":{
             name: "Level: 5",
-            time: "180",
+            time: "90",
+            strongEnemyChance: 95,
+            minInterval: 550,
+            maxInterval: 3100
+        },
+        "level6":{
+            name: "Level: 6",
+            time: "105",
             strongEnemyChance: 125,
+            minInterval: 400,
+            maxInterval: 2500
+        },
+        "level7":{
+            name: "Level: 7",
+            time: "165",
+            strongEnemyChance: 140,
             minInterval: 320,
             maxInterval: 1900
+        },
+        "level8":{
+            name: "Level: 8",
+            time: "120",
+            strongEnemyChance: 175,
+            minInterval: 280,
+            maxInterval: 1750
         },
     },
     
     enemyAttr:{
-        "enemy1":{ // boring enemy
-            name: 'g_normal',
+        "enemy1":{ // enemy that fades in and out
+            name: 'g_alpha',
             health: 1,
             strength: 20,
             speed: 40,
             points: 25,
         },
-        "enemy2":{ // enemy that fades in and out
-            name: 'g_alpha',
+        "enemy2":{ // enemy that rotates
+            name: 'g_normal',
             health: 1,
             strength: 25,
             speed: 50,

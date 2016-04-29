@@ -36,10 +36,10 @@ preloader.prototype = {
         this.game.load.image("bonus_bomb", "assets/images/bonus1.png");
         this.game.load.image("bonus_clock", "assets/images/bonus2.png");
         this.game.load.image("bonus_heal", "assets/images/bonus3.png");
+        this.game.load.image("medals", "assets/images/medals.png");
         
         this.game.load.spritesheet("bow", "assets/images/bow.png", 70, 90);
         this.game.load.spritesheet("health_bar", "assets/images/health_bar.png", 40, 6);
-        this.game.load.spritesheet("medals","assets/images/medals.png", 20, 36);
         this.game.load.spritesheet("explosion","assets/images/explosion.png", 88 ,75);
         this.game.load.spritesheet("numbers","assets/images/numbers.png", 28 ,30);
 

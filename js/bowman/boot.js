@@ -1,5 +1,5 @@
 window.onload = function(){
-    font = 'Chewy';
+    font = 'Seymour One';
 
     WIDTH = 706; HEIGHT = 398; // 16:9 ratio
     
@@ -27,7 +27,7 @@ boot.prototype = {
           this.game.load.image("loading", "assets/images/loading.png");
           this.game.load.image("bg", "assets/images/bg.jpg");
           
-          this.game.load.spritesheet("castle", "assets/images/tower.png", 120, 107);
+          this.game.load.spritesheet("castle", "assets/images/tower.png", 140, 87);
     },
     create: function(){
         game.stage.backgroundColor = '#B9CEC5';

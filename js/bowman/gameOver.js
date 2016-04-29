@@ -26,13 +26,13 @@ game_over.prototype = {
                 content: "window",
                 offsetY: 0,
                 offsetX: 0,
-                contentScale: 1.2
+                contentScale: 1.3
             },
             {
                 type: "text",
                 content: message,
                 fontFamily: font,
-                fontSize: 38,
+                fontSize: 32,
                 color: "0xFEFF49",
                 offsetY: -70,
                 stroke: "0x000000",

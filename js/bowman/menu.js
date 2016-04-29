@@ -5,11 +5,11 @@ menu.prototype = {
         button = false;
         
         game.add.image(0, 0, 'bg');
-        castle = this.add.image(WIDTH/2 - 60, 265, "castle");
+        castle = this.add.image(WIDTH/2 - 70, 280, "castle");
         
-        cloud1 = this.add.image(WIDTH/2 - 278, 177, "cloud2");
+        cloud1 = this.add.image(WIDTH/2 - 256, 172, "cloud2");
         cloud1.alpha = 0;
-        game.add.tween(cloud1).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true);
+        game.add.tween(cloud1).to( { alpha: 0.5 }, 2000, Phaser.Easing.Linear.None, true);
 
         clouds = this.add.group();
         clouds.enableBody = true;
@@ -18,7 +18,7 @@ menu.prototype = {
         
         createClouds();
         
-        bow = this.add.sprite(WIDTH/2, 260, "bow");
+        bow = this.add.sprite(WIDTH/2 - 10, 290, "bow");
         bow.anchor.set(0.5, 0.5);
         playRw = bow.animations.add('rw', [23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12], 10, false); // animation of bow in reverse
 
@@ -34,8 +34,8 @@ menu.prototype = {
         arrow.aplha = 0.8;
         game.add.tween(arrow).from( { x: -2000 }, 2000, Phaser.Easing.Cubic.In, true);
         
-        nameLabel = this.game.add.text(50, 15, 'C  A  S  T  L  E      I  N  V  A  D  E  R  S !', {
-            font: '42px ' + font, fill: 'purple', fontWeight: 'bold', align: 'center'
+        nameLabel = this.game.add.text(15, 15, 'C  A  S  T  L  E      I  N  V  A  D  E  R  S !', {
+            font: '31px ' + font, fill: 'purple', fontWeight: 'bold', align: 'center'
         });
         nameLabel.alpha = 0;
         nameLabel.setShadow(3, 3, 'rgba(0, 105, 0 ,0.4)', 5);
@@ -46,8 +46,8 @@ menu.prototype = {
         });
         game.add.tween(headerLabel).from( { x: -300 }, 1000, Phaser.Easing.Linear.Out, true);
         
-        headerLabel2 = this.game.add.text(90, 190, 'A I M', {
-            font: '25px ' + font, fill: 'green', fontWeight: 'normal', align: 'center'
+        headerLabel2 = this.game.add.text(93, 190, 'A I M', {
+            font: '23px ' + font, fill: 'yellow', fontWeight: 'normal', align: 'center'
         });
         game.add.tween(headerLabel2).from( { x: -400 }, 3000, Phaser.Easing.Bounce.Out, true);
        
@@ -56,9 +56,9 @@ menu.prototype = {
         });
         game.add.tween(headerLabel3).from( { x: -2000 }, 2000, Phaser.Easing.Cubic.In, true);
 
-        howToText = this.game.add.text(465, 85, 
-            "H o w  t o  s h o o t ?\n 1. click anywhere in the game window. \n 2. move pointer back to gain strength.\n 3. move pointer sideways to aim. \n 4. release to shoot !", {
-            font: '14px ' + font, fill: 'brown', fontWeight: 'normal', align: 'center'
+        howToText = this.game.add.text(355, 95, 
+            "H o w  t o  s h o o t ?\n 1. click anywhere in the game window \n 2. move pointer back to gain strength\n 3. move pointer sideways to aim \n 4. release to shoot !", {
+            font: '12px ' + font, fill: 'brown', fontWeight: 'normal', align: 'center'
         });
         howToText.alpha = 0;
         game.add.tween(howToText).to( { alpha: 1 }, 3000, Phaser.Easing.Linear.None, true);

@@ -4,7 +4,7 @@ var gameMain = function(game){
     
     bowFrame = 0;
 
-    ARROW_BASE_SPEED = 160; // increase for faster arrows
+    ARROW_BASE_SPEED = 150; // increase for faster arrows
     ARROW_GRAVITY_Y = 800; // increase for heavier arrows
 
     CASTLE_MAX_HP = 300; // your castle's hit points
@@ -17,6 +17,7 @@ gameMain.prototype = {
     create: function(){
         this.world.setBounds(0, 0, WIDTH, HEIGHT + 120); // extra height so arrows could fall back from the sky
         bg = this.add.image(0, 0, 'bg');
+        bg.alpha = 0.6;
 
         ground = this.add.sprite(0, HEIGHT - 55, null); // alien will land here
         this.physics.enable(ground, Phaser.Physics.ARCADE);
@@ -39,11 +40,11 @@ gameMain.prototype = {
         sideU.body.setSize(WIDTH, 1);
         sideU.body.immovable = true;
         
-        castle = this.add.sprite(WIDTH/2 - 60, 265, "castle");
+        castle = this.add.sprite(WIDTH/2 - 70, 280, "castle");
         this.physics.enable(castle, Phaser.Physics.ARCADE);
         castle.body.immovable = true;
 
-        bow = this.add.sprite(WIDTH/2, 260, "bow");
+        bow = this.add.sprite(WIDTH/2 - 10, 290, "bow");
         bow.anchor.set(0.5, 0.5);
         playRw = bow.animations.add('rw', [23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12], 10, false); // animation of bow in reverse
 
@@ -64,7 +65,6 @@ gameMain.prototype = {
         clouds = this.add.group();
         clouds.enableBody = true;
         clouds.physicsBodyType = Phaser.Physics.ARCADE;
-        clouds.alpha = 0.8;
 
         createClouds();
 
@@ -73,7 +73,7 @@ gameMain.prototype = {
         attr.gameScore = 0;
         
         scoreLabel = this.add.text(46, 17, String(attr.gameScore), {
-            font: '20px ' + font, fill: 'darkgreen', fontWeight: 'normal', align: 'center'
+            font: '16px ' + font, fill: 'darkgreen', fontWeight: 'normal', align: 'center'
         });
         coin = this.add.image(18, 20, 'coin');
         
@@ -81,32 +81,35 @@ gameMain.prototype = {
         if (score_best == null || score_best == 'null' || score_best == undefined || score_best == 'undefined') score_best = "0";
             
         bestLabel = this.add.text(666, 70, score_best, {
-            font: '14px ' + font, fill: 'darkred', fontWeight: 'normal', align: 'center'
+            font: '13px ' + font, fill: 'darkred', fontWeight: 'normal', align: 'center'
         });
         var medal = this.game.add.image(648, 70, 'medals');
         medal.scale.set(0.5, 0.5);
         
-        var cloudImg = this.add.image(643, 10, 'cloud2');
+        var cloudImg = this.add.image(643, 7, 'cloud1');
         cloudImg.scale.set(0.62,0.85);
+        cloudImg.alpha = 0.5;
         lvl_number = this.add.sprite(680, 35, 'numbers');
         lvl_number.frame = (attr.currentLevel - 1);
         lvl_number.anchor.set(1, 0.5);
 
-        castleLabel = this.add.text(195, HEIGHT - 40, CASTLE_MAX_HP, {
-            font: '23px ' + font, fill: 'purple', fontWeight: 'normal', align: 'center'
+        castleLabel = this.add.text(55, HEIGHT - 70, CASTLE_MAX_HP, {
+            font: '17px ' + font, fill: 'purple', fontWeight: 'normal', align: 'center'
         });
-        var heartImg = this.add.image(165, HEIGHT - 35, 'heart');
+        var heartImg = this.add.image(20, HEIGHT - 65, 'heart');
 
         timeLabel = this.add.text(55, HEIGHT - 38, format_time(get_time_left()), {
-            font: '21px ' + font, fill: 'darkblue', fontWeight: 'normal', align: 'center'
+            font: '18px ' + font, fill: 'darkblue', fontWeight: 'normal', align: 'center'
         });
         var watch = this.add.image(15, HEIGHT - 38, 'bonus_clock');
+        watch.scale.set(0.7,0.7);
 
-        exit_btn = this.add.button(655, 350, 'button', function(){
+        exit_btn = this.add.button(665, 360, 'button', function(){
             end_game('lost');
         }, this, 'exit','exit_hover','exit_click');       
         exit_btn.input.useHandCursor = true;
-        exit_btn.scale.set(0.2, 0.2);
+        exit_btn.scale.set(0.15, 0.15);
+        exit_btn.alpha = 0.5;
         exit_btn.onInputOver.add(function(){ button = true; }, this);
         exit_btn.onInputOut.add(function(){ button = false; }, this);
 
@@ -144,6 +147,7 @@ gameMain.prototype = {
         // collisions 
         game.physics.arcade.collide(ground, arrows, arrow_outOfBounds, null, this); // arrow hits ground
         game.physics.arcade.collide(sideBounds, arrows, arrow_outOfBounds, null, this); // arrow hits side bounds
+        game.physics.arcade.collide(clouds, arrows, arrow_hit_cloud, null, this); // arrow hits cloud
         
         for (var i = 0; i < enemies.length; i++){
             if (enemies[i].isAlive){
@@ -164,6 +168,11 @@ gameMain.prototype = {
         }
     },  
 };
+
+function arrow_hit_cloud(_cloud){
+    var random = game.rnd.integerInRange(0,2);
+    if (random = 1) _cloud.kill();
+}
 
 function bow_and_arrow_updates(){
    if(game.input.activePointer.isDown && button == false){
@@ -591,19 +600,19 @@ function tween_score(score, color, object){
     coin = game.add.image(pointsText.x - 25, pointsText.y, 'coin');
 
     game.add.tween(pointsText).from( { y: HEIGHT + 100 }, 2200, Phaser.Easing.Linear.In, true);
-    game.add.tween(pointsText).to( { alpha: 0 }, 3000, Phaser.Easing.Linear.None, true);
+    game.add.tween(pointsText).to( { alpha: 0 }, 3350, Phaser.Easing.Linear.None, true);
     
     game.add.tween(coin).from( { y: HEIGHT + 100 }, 2200, Phaser.Easing.Linear.In, true);
-    game.add.tween(coin).to( { alpha: 0 }, 2750, Phaser.Easing.Linear.None, true);    
+    game.add.tween(coin).to( { alpha: 0 }, 2900, Phaser.Easing.Linear.None, true);    
 }
 
 function tween_time(time, color, object){
     timeText = game.add.text(object.body.x, 0, time, { 
-         font: '21px ' + font, fill: color, fontWeight: 'normal', align: 'center'
+         font: '18px ' + font, fill: color, fontWeight: 'normal', align: 'center'
     });
     
-    clock = game.add.image(timeText.x - 25, timeText.y, 'bonus_clock');
-    clock.scale.set(0.8, 0.8);
+    clock = game.add.image(timeText.x, timeText.y, 'bonus_clock');
+    clock.scale.set(0.7, 0.7);
     
     game.add.tween(timeText).from( { y: object.body.y }, 2000, Phaser.Easing.Linear.In, true);
     game.add.tween(timeText).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true); 
@@ -616,8 +625,10 @@ function createClouds(){
     var cloud_to_create = game.rnd.integerInRange(1, 2);
     var time_to_next = game.rnd.integerInRange(7000, 14000);
     var start_y = game.rnd.integerInRange(20, 200);
-    var velocity_x = game.rnd.integerInRange(-50, 50);
-    var cloud_alpha = game.rnd.integerInRange(4, 8);
+    var velocity_x = game.rnd.integerInRange(-75, 75);
+    var cloud_alpha = game.rnd.integerInRange(3, 7);
+    var scalingX = game.rnd.integerInRange(65, 95);
+    var scalingY = game.rnd.integerInRange(65, 95);
    
     if (velocity_x < 0) start_x = 850;
     else{ start_x = -100; }
@@ -625,6 +636,8 @@ function createClouds(){
     cloud = clouds.create(start_x ,start_y, 'cloud'+cloud_to_create);
     cloud.body.velocity.x = velocity_x;
     cloud.alpha = '0.' + cloud_alpha;
+    cloud.scale.set(scalingX / 100, scalingY / 100);
+    cloud.body.immovable = true;
     
     if (cloud.body.x < -200 || cloud.body.x > 950) cloud.kill();
 

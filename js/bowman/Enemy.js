@@ -1,6 +1,6 @@
 Enemy = function (game, index, type, name, health, strength, speed, pts) {
-    var x = game.rnd.integerInRange(70, WIDTH - 70); // random x point as starting point for the enemy 
-    var y = -40;
+    var x = game.rnd.integerInRange(0, WIDTH); // random x point as starting point for the enemy 
+    var y = -55;
 
     this.game = game;
     this.type = type;
@@ -36,6 +36,10 @@ Enemy = function (game, index, type, name, health, strength, speed, pts) {
         this.health_bar.alpha = 0;
         game.add.tween(this.enemy).to( { alpha: 0.6 }, 1200, Phaser.Easing.Linear.None, true, 0, 1000, true);
         game.add.tween(this.health_bar).to( { alpha: 0.7 }, 1200, Phaser.Easing.Linear.None, true, 0, 1000, true);
+    }
+    
+    else if(this.name == 'g_normal'){
+       this.enemy.body.angularVelocity = 50; 
     }
 };
 

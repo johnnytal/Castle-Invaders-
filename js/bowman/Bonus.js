@@ -36,6 +36,10 @@ Bonus = function (game, index, type, name, speed, strength, health, pts) {
     else if (this.name == 'bonus_clock'){
          this.bonus.body.gravity.y = 15;
     }
+    
+    else if (this.name == 'bonus_heal'){
+         this.bonus.body.angularVelocity = 0;
+    }
 };
 
 Bonus.prototype.damage = function(damageDone) {
