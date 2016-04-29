@@ -104,15 +104,26 @@ gameMain.prototype = {
         var watch = this.add.image(15, HEIGHT - 38, 'bonus_clock');
         watch.scale.set(0.7,0.7);
 
-        exit_btn = this.add.button(665, 360, 'button', function(){
-            end_game('lost');
-        }, this, 'exit','exit_hover','exit_click');       
+        exit_btn = this.add.button(665, 360, 'exit_btn');       
+        exit_btn.inputEnabled = true;
         exit_btn.input.useHandCursor = true;
         exit_btn.scale.set(0.15, 0.15);
-        exit_btn.alpha = 0.5;
+        exit_btn.alpha = 0.7;
         exit_btn.onInputOver.add(function(){ button = true; }, this);
         exit_btn.onInputOut.add(function(){ button = false; }, this);
-
+        
+        exit_btn.events.onInputOver.add(function(){ 
+            inst_btn.frame = 1;
+        }, this);
+        
+        exit_btn.events.onInputOut.add(function(){ 
+            inst_btn.frame = 0;
+        }, this);
+        
+        exit_btn.events.onInputDown.add(function(){ 
+            end_game('lost'); 
+        }, this);
+        
         modal = new gameModal(game);
 
         timer_add_enemy();

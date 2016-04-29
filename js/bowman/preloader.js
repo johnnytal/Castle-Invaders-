@@ -14,8 +14,6 @@ preloader.prototype = {
         loadingBar.anchor.setTo(0, 0.5);
         this.load.setPreloadSprite(loadingBar);
 
-        this.game.load.atlas('button', 'assets/images/ui.png', 'assets/images/buttons.json');
-          
         this.game.load.image("replay", "assets/images/replay.png");
         this.game.load.image("menu", "assets/images/menu.png");
         this.game.load.image("window", "assets/images/panel.png");
@@ -42,6 +40,12 @@ preloader.prototype = {
         this.game.load.spritesheet("health_bar", "assets/images/health_bar.png", 40, 6);
         this.game.load.spritesheet("explosion","assets/images/explosion.png", 88 ,75);
         this.game.load.spritesheet("numbers","assets/images/numbers.png", 28 ,30);
+        
+        this.game.load.spritesheet("audioBtn","assets/images/audioBtn.png", 183 ,190);
+        this.game.load.spritesheet("instBtn","assets/images/instBtn.png", 183 ,190);
+        this.game.load.spritesheet("playBtn","assets/images/playBtn.png", 183 ,190);
+        this.game.load.spritesheet("homeBtn","assets/images/homeBtn.png", 183 ,190);
+        this.game.load.spritesheet("exit_btn","assets/images/exit_btn.png", 183 ,190);
 
         this.game.load.audio('sfxClick1', 'assets/audio/switch1.mp3'); 
         this.game.load.audio('sfxClick2', 'assets/audio/switch2.mp3'); 

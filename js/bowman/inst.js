@@ -40,9 +40,22 @@ inst.prototype = {
             font: '11px ' + font, fill: 'darkblue', fontWeight: 'normal', align: 'left'
         });
 
-        home_btn = this.add.button(this.game.world.centerX - 60, 300, 'button', this.startMenu, this, 'home','home_hover','home_click');
+        home_btn = this.add.button(this.game.world.centerX - 60, 325, 'homeBtn');
+        home_btn.inputEnabled = true;
         home_btn.input.useHandCursor = true;
-        home_btn.scale.set(0.4, 0.4);
+        home_btn.scale.set(0.3, 0.3);
+        
+        home_btn.events.onInputOver.add(function(){ 
+            home_btn.frame = 1;
+        }, this);
+        
+        home_btn.events.onInputOut.add(function(){ 
+            home_btn.frame = 0;
+        }, this);
+        
+        home_btn.events.onInputDown.add(function(){ 
+            this.game.state.start("Menu"); 
+        }, this);
     },
     
     startMenu: function () {
