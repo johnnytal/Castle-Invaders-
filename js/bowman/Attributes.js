@@ -5,7 +5,7 @@ attr = {
     levelAttr: {
         "level1":{
             name: "Level: 1",
-            time: "20",
+            time: "30",
             strongEnemyChance: 15,
             minInterval: 1100,
             maxInterval: 3200
@@ -15,7 +15,7 @@ attr = {
             time: "45",
             strongEnemyChance: 35,
             minInterval: 900,
-            maxInterval: 3400
+            maxInterval: 3200
         },
         "level3":{
             name: "Level: 3",
@@ -26,38 +26,38 @@ attr = {
         },
         "level4":{
             name: "Level: 4",
-            time: "65",
+            time: "70",
             strongEnemyChance: 65,
             minInterval: 700,
             maxInterval: 3300
         },
         "level5":{
             name: "Level: 5",
-            time: "90",
+            time: "85",
             strongEnemyChance: 95,
             minInterval: 550,
-            maxInterval: 3100
+            maxInterval: 3050
         },
         "level6":{
             name: "Level: 6",
-            time: "105",
+            time: "110",
             strongEnemyChance: 125,
-            minInterval: 400,
-            maxInterval: 2500
+            minInterval: 425,
+            maxInterval: 2680
         },
         "level7":{
             name: "Level: 7",
-            time: "165",
-            strongEnemyChance: 140,
-            minInterval: 320,
-            maxInterval: 1900
+            time: "160",
+            strongEnemyChance: 150,
+            minInterval: 340,
+            maxInterval: 2000
         },
         "level8":{
             name: "Level: 8",
-            time: "120",
-            strongEnemyChance: 175,
-            minInterval: 280,
-            maxInterval: 1750
+            time: "125",
+            strongEnemyChance: 180,
+            minInterval: 290,
+            maxInterval: 1700
         },
     },
     

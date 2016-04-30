@@ -21,6 +21,7 @@ preloader.prototype = {
         this.game.load.image("heart","assets/images/heart.png");
         this.game.load.image("coin","assets/images/coin.png");
         this.game.load.image("ok","assets/images/ok.png");
+        this.game.load.image("chicken","assets/images/chicken.png");
         
         this.game.load.image("cloud1","assets/images/cloud1.png");
         this.game.load.image("cloud2","assets/images/cloud2.png");
@@ -39,7 +40,7 @@ preloader.prototype = {
         this.game.load.spritesheet("bow", "assets/images/bow.png", 70, 90);
         this.game.load.spritesheet("health_bar", "assets/images/health_bar.png", 40, 6);
         this.game.load.spritesheet("explosion","assets/images/explosion.png", 88 ,75);
-        this.game.load.spritesheet("numbers","assets/images/numbers.png", 28 ,30);
+        this.game.load.spritesheet("numbers","assets/images/numbers.png", 27 ,30);
         
         this.game.load.spritesheet("audioBtn","assets/images/audioBtn.png", 183 ,190);
         this.game.load.spritesheet("instBtn","assets/images/instBtn.png", 183 ,190);

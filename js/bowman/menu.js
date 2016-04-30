@@ -18,7 +18,7 @@ menu.prototype = {
         
         createClouds();
         
-        bow = this.add.sprite(WIDTH/2 - 10, 290, "bow");
+        bow = this.add.sprite(WIDTH/2 - 10, 283, "bow");
         bow.anchor.set(0.5, 0.5);
         playRw = bow.animations.add('rw', [23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12], 10, false); // animation of bow in reverse
 

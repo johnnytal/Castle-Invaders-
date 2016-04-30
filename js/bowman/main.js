@@ -4,13 +4,14 @@ var gameMain = function(game){
     
     bowFrame = 0;
 
-    ARROW_BASE_SPEED = 150; // increase for faster arrows
+    ARROW_BASE_SPEED = 155; // increase for faster arrows
     ARROW_GRAVITY_Y = 770; // increase for heavier arrows
 
     CASTLE_MAX_HP = 300; // your castle's hit points
 
     enemies = [];
     bonuses = [];
+    mileStones = [false, false, false, false];
 };
 
 gameMain.prototype = {
@@ -44,7 +45,7 @@ gameMain.prototype = {
         this.physics.enable(castle, Phaser.Physics.ARCADE);
         castle.body.immovable = true;
 
-        bow = this.add.sprite(WIDTH/2 - 10, 290, "bow");
+        bow = this.add.sprite(WIDTH/2 - 10, 283, "bow");
         bow.anchor.set(0.5, 0.5);
         playRw = bow.animations.add('rw', [23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12], 10, false); // animation of bow in reverse
 
@@ -80,11 +81,11 @@ gameMain.prototype = {
         var score_best = localStorage.getItem("invaders-bestScore");
         if (score_best == null || score_best == 'null' || score_best == undefined || score_best == 'undefined') score_best = "0";
             
-        bestLabel = this.add.text(661, 70, score_best, {
-            font: '12px ' + font, fill: 'darkred', fontWeight: 'normal', align: 'center'
+        bestLabel = this.add.text(617, 370, score_best, {
+            font: '10px ' + font, fill: 'darkred', fontWeight: 'normal', align: 'center'
         });
-        var medal = this.game.add.image(643, 70, 'medals');
-        medal.scale.set(0.5, 0.5);
+        var medal = this.game.add.image(605, 370, 'medals');
+        medal.scale.set(0.4, 0.4);
         
         var cloudImg = this.add.image(643, 7, 'cloud2');
         cloudImg.scale.set(0.62,0.85);
@@ -104,13 +105,11 @@ gameMain.prototype = {
         var watch = this.add.image(15, HEIGHT - 38, 'bonus_clock');
         watch.scale.set(0.7,0.7);
 
-        exit_btn = this.add.button(665, 360, 'exit_btn');       
+        exit_btn = this.add.button(670, 365, 'exit_btn');       
         exit_btn.inputEnabled = true;
         exit_btn.input.useHandCursor = true;
         exit_btn.scale.set(0.15, 0.15);
         exit_btn.alpha = 0.7;
-        exit_btn.onInputOver.add(function(){ button = true; }, this);
-        exit_btn.onInputOut.add(function(){ button = false; }, this);
         
         exit_btn.events.onInputOver.add(function(){ 
             inst_btn.frame = 1;
@@ -149,7 +148,6 @@ gameMain.prototype = {
         music.play(); 
         
         button = false;
-        //no_shots_on_buttons();
     },
     
     update: function(){   
@@ -177,13 +175,24 @@ gameMain.prototype = {
                 game.physics.arcade.collide(ground, bonuses[i].bonus, bonus_outOfBounds, null, this); // bonus hits ground
             }
         }
+        
+        if (attr.gameScore > 1000 && !mileStones[0]){
+            mile_stone(1);
+        }
+        
+        else if (attr.gameScore > 2500 && !mileStones[1]){
+            mile_stone(2);
+        }
+        
+        else if (attr.gameScore > 5000 && !mileStones[2]){
+            mile_stone(3);
+        }
+        
+        else if (attr.gameScore > 10000 && !mileStones[3]){
+            mile_stone(4);
+        }
     },  
 };
-
-function arrow_hit_cloud(_cloud){
-    var random = game.rnd.integerInRange(0,3);
-    if (random == 1) _cloud.kill();
-}
 
 function bow_and_arrow_updates(){
    if(game.input.activePointer.isDown && button == false){
@@ -220,7 +229,35 @@ function bow_and_arrow_updates(){
         
         try{
             arrow = arrows.getFirstExists(false); // get our arrow, place it on the bow with the right angle, apply gravity, shoot it!
-            arrow.reset(this.game.world.centerX + 20, 260);
+            
+            var factorX = 0;
+            var factorY = 0;
+            var angle = bow.angle;
+
+
+            if (angle >= -180 && angle <= -145){
+                factorX = -15;
+                factorY = 20;
+            }
+            else if (angle >= -145 && angle <= -120){
+                factorX = -5;
+                factorY = 30;
+            }
+            else if (angle >= -120 && angle <= -70){
+                factorX = -20;
+                factorY = 0;
+            }
+            else if (angle >= -15 && angle <= 20){
+                factorX = 0;
+                factorY = 20;
+            }
+            else if (angle >= 160 && angle <= 180){
+                factorX = 0;
+                factorY = 25;
+            }
+
+            arrow.reset(this.game.world.centerX + 20 + factorX, 260 + factorY);
+            
             arrow.angle = bow.angle;
             arrow.body.gravity.y = ARROW_GRAVITY_Y;
     
@@ -231,7 +268,7 @@ function bow_and_arrow_updates(){
             );
             
             arrow.body.angularVelocity = Math.atan2(arrow.body.velocity.x, arrow.body.velocity.y) * (180 / Math.PI) / 1.5; // makes the arrow change its angle while flying, for realism sake
-            }
+        }
         catch(e){ // in case you somehow run out of arrows the game won't crash, but skip one arrow and reload them
             arrows.forEach(function(a) {
                 a.kill();
@@ -243,6 +280,17 @@ function bow_and_arrow_updates(){
 
         bow.animations.play('rw', 250, false, false); // reset bow      
     }  
+}
+
+function arrow_hit_cloud(_cloud){
+    var random = game.rnd.integerInRange(0,3);
+    var noCloud;
+    if (random == 1){
+        noCloud = game.add.tween(_cloud).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, true);
+        noCloud.onComplete.add(function(){
+            _cloud.kill();
+        }, this);
+    }
 }
 
 function arrow_hit_bonus(_bonus, _arrow){
@@ -295,7 +343,27 @@ function bonus_hit_castle(_castle, _bonus){
 }
 
 function arrow_hit_enemy(_enemy, _arrow){
-    _arrow.kill();
+    var arrowVel = _arrow.body.velocity.y;
+    
+    var random = game.rnd.integerInRange(0, Math.ceil(Math.abs(arrowVel) + (attr.currentLevel * 20)));
+
+    if (random < 1350){
+        _arrow.kill();
+    }
+    else{ 
+        superText = game.add.text(_arrow.body.x, _arrow.body.y, 'Crazzzy Shot!', { 
+            font: '12px ' + font, fill: 'purple', fontWeight: 'normal', align: 'center'
+        });
+        superText.anchor.set(0.5, 0.5);
+        superText.angle = -135;
+
+        game.add.tween(superText).from( { y: _arrow.body.y + 150 }, 2000, Phaser.Easing.Linear.In, true);
+        game.add.tween(superText).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true);
+        game.add.tween(superText).to( { angle: 0 }, 1000, Phaser.Easing.Linear.None, true);
+        
+        enemies[_enemy.index].damage(2);
+    }
+
     enemies[_enemy.index].damage(1); // each hit takes 1 damage from the alien
 }
 
@@ -512,6 +580,144 @@ function level_end_modal(level) {
        game.add.tween(modal.getModalItem('nextLevel',n)).from( { y: - 800 }, 500, Phaser.Easing.Linear.In, true);
    }
 }
+
+function mile_stone(stone) {
+    mileStones[(stone-1)] = true;
+
+    music.stop();
+    
+    game.time.events.pause(level_timer);
+    game.time.events.pause(enemy_timer);
+
+    button = true;
+    
+    modal.createModal({
+        type:"mileStone",
+        includeBackground: true,
+        modalCloseOnInput: false,
+        itemsArr: [
+            {
+                type: "image",
+                content: "window",
+                offsetY: 0,
+                offsetX: 0,
+                contentScale: 1.15
+            },
+            {
+                type: "text",
+                content: "Milestone score! \n\n Choose a bonus:",
+                fontFamily: font,
+                fontSize: 26,
+                color: "0xFEDF22",
+                offsetY: -100,
+                stroke: "0x000000",
+                strokeThickness: 5
+            },
+            {
+                type: "image",
+                content: "bonus_heal",
+                offsetX: -140,
+                offsetY: 30,
+                contentScale: 1,
+                callback: function () {
+                    clicks[1].play();
+                    music.play(); 
+                    
+                    modal.hideModal('mileStone');
+                    
+                    game.time.events.resume(level_timer);
+                    game.time.events.resume(enemy_timer); 
+                    
+                    button = false;   
+                    
+                    castle_hp += (25 * stone);
+                    castleLabel.text = castle_hp;
+                }
+            },
+            {
+                type: "image",
+                content: "bonus_clock",
+                offsetX: -50,
+                offsetY: 30,
+                contentScale: 1,
+                callback: function () {
+                    clicks[1].play();
+                    music.play(); 
+                    
+                    modal.hideModal('mileStone');
+                    
+                    game.time.events.resume(level_timer);
+                    game.time.events.resume(enemy_timer); 
+                    
+                    button = false;   
+                    
+                    time_left -= (6 * stone);
+                }
+            },
+            {
+                type: "image",
+                content: "bonus_bomb",
+                offsetX: 50,
+                offsetY: 30,
+                contentScale: 1,
+                callback: function () {
+                    clicks[1].play();
+                    music.play(); 
+                    
+                    modal.hideModal('mileStone');
+                    
+                    game.time.events.resume(level_timer);
+                    game.time.events.resume(enemy_timer); 
+                    
+                    button = false; 
+                    
+                   for (var i = 0; i < enemies.length; i++){ // bomb damages all enemies on screen by 1
+                       if (enemies[i].isAlive){
+                           enemies[i].damage((1 * stone)); 
+                       }
+                   }  
+                }
+            },
+            {
+                type: "image",
+                content: "arrow",
+                offsetX: 140,
+                offsetY: 30,
+                contentScale: 1,
+                callback: function () {
+                    clicks[1].play();
+                    music.play(); 
+                    
+                    modal.hideModal('mileStone');
+                    
+                    game.time.events.resume(level_timer);
+                    game.time.events.resume(enemy_timer); 
+                    
+                    button = false;   
+                    ARROW_BASE_SPEED += (12 * stone);
+                }
+            },
+        ]
+   });
+   modal.showModal("mileStone");  
+   
+   img1 = modal.getModalItem('mileStone',4); 
+   img1.input.useHandCursor = true;
+   
+   img2 = modal.getModalItem('mileStone',3); 
+   img2.input.useHandCursor = true;
+   
+   img3 = modal.getModalItem('mileStone',5); 
+   img3.input.useHandCursor = true;
+   
+   img4 = modal.getModalItem('mileStone',6); 
+   img4.input.useHandCursor = true;
+   
+  for (n=0; n<7; n++){
+       game.add.tween(modal.getModalItem('mileStone',n)).from( { y: - 800 }, 200, Phaser.Easing.Linear.In, true);
+   }   
+}
+
 
 function next_level(){
     clicks[1].play();

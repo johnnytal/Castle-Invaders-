@@ -25,7 +25,7 @@ boot.prototype = {
           this.game.load.audio('sfxMenu', 'assets/audio/Reggae_ident.mp3'); 
           
           this.game.load.image("loading", "assets/images/loading.png");
-          this.game.load.image("bg", "assets/images/bg.jpg");
+          this.game.load.image("bg", "assets/images/bg.png");
           
           this.game.load.spritesheet("castle", "assets/images/tower.png", 140, 87);
     },
