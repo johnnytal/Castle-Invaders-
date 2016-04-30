@@ -17,7 +17,7 @@ gameMain.prototype = {
     create: function(){
         this.world.setBounds(0, 0, WIDTH, HEIGHT + 120); // extra height so arrows could fall back from the sky
         bg = this.add.image(0, 0, 'bg');
-        bg.alpha = 0.6;
+        bg.alpha = 0.7;
 
         ground = this.add.sprite(0, HEIGHT - 55, null); // alien will land here
         this.physics.enable(ground, Phaser.Physics.ARCADE);
@@ -80,13 +80,13 @@ gameMain.prototype = {
         var score_best = localStorage.getItem("invaders-bestScore");
         if (score_best == null || score_best == 'null' || score_best == undefined || score_best == 'undefined') score_best = "0";
             
-        bestLabel = this.add.text(666, 70, score_best, {
-            font: '13px ' + font, fill: 'darkred', fontWeight: 'normal', align: 'center'
+        bestLabel = this.add.text(661, 70, score_best, {
+            font: '12px ' + font, fill: 'darkred', fontWeight: 'normal', align: 'center'
         });
-        var medal = this.game.add.image(648, 70, 'medals');
+        var medal = this.game.add.image(643, 70, 'medals');
         medal.scale.set(0.5, 0.5);
         
-        var cloudImg = this.add.image(643, 7, 'cloud1');
+        var cloudImg = this.add.image(643, 7, 'cloud2');
         cloudImg.scale.set(0.62,0.85);
         cloudImg.alpha = 0.5;
         lvl_number = this.add.sprite(680, 35, 'numbers');
@@ -338,7 +338,7 @@ function timer_end_level(){
         }
 
         else if (time_left <= 0){
-            if (attr.currentLevel < 5){ // if there are more levels, show the end level screen
+            if (attr.currentLevel < 8){ // if there are more levels, show the end level screen
                 level_end_modal(attr.currentLevel); 
 
                 levelSfx.play();

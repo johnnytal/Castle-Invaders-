@@ -58,7 +58,7 @@ menu.prototype = {
 
         howToText = this.game.add.text(345, 125, 
             "- Swipe  back  to  gain  momentum -\n - Swipe  sideways  to  aim -\n - Release  to  shoot ! -", {
-            font: '14px ' + font, fill: 'brown', fontWeight: 'normal', align: 'center'
+            font: '14px ' + font, fill: 'brown', fontWeight: 'bold', align: 'center'
         });
         howToText.alpha = 0;
         game.add.tween(howToText).to( { alpha: 1 }, 3000, Phaser.Easing.Linear.None, true);

@@ -4,14 +4,14 @@ inst.prototype = {
     create: function(){
         this.add.image(0, 0, 'bg');
         
-        this.add.image(18, 20, 'g_normal');
+        this.add.image(15, 20, 'g_normal');
         this.add.image(25, 85, 'g_alpha');
         this.add.image(25, 150, 'g_fast');
         this.add.image(25, 215, 'g_shield');
         this.add.image(30, 280, 'g_small');
         
         this.add.image(320, 30, 'bonus_bomb');
-        this.add.image(330, 130, 'bonus_clock');
+        this.add.image(325, 130, 'bonus_clock');
         this.add.image(330, 235, 'bonus_heal');
 
         this.game.add.text(85, 20, "Circly - rotates \n 1 shot to kill   * 25 pts *", {
@@ -33,7 +33,7 @@ inst.prototype = {
         this.game.add.text(375, 45, "Bomb - Damages all enemies on screen", {
             font: '11px ' + font, fill: 'darkblue', fontWeight: 'normal', align: 'left'
         });
-        this.game.add.text(375, 145, "Clock - Subtract time to next level", {
+        this.game.add.text(385, 145, "Clock - Subtract time to next level", {
             font: '11px ' + font, fill: 'brown', fontWeight: 'normal', align: 'left'
         });
         this.game.add.text(375, 250, "Flower - Adds HP when it hits your castle", {
