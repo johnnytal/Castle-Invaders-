@@ -1,7 +1,8 @@
 attr = {
     currentLevel: 1,
     gameScore: 0,
-
+    bestScore: localStorage.getItem("invaders-bestScore"),
+    
     levelAttr: {
         "level1":{
             name: "Level: 1",

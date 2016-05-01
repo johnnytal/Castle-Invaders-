@@ -351,8 +351,8 @@ function arrow_hit_enemy(_enemy, _arrow){
         _arrow.kill();
     }
     else{ 
-        superText = game.add.text(_arrow.body.x, _arrow.body.y, 'Crazzzy Shot!', { 
-            font: '12px ' + font, fill: 'purple', fontWeight: 'normal', align: 'center'
+        superText = game.add.text(_arrow.body.x, _arrow.body.y, 'CrazzzyShot!', { 
+            font: '13px ' + font, fill: 'purple', fontWeight: 'normal', align: 'center'
         });
         superText.anchor.set(0.5, 0.5);
         superText.angle = -135;
@@ -605,7 +605,7 @@ function mile_stone(stone) {
             },
             {
                 type: "text",
-                content: "Milestone score! \n\n Choose a bonus:",
+                content: "Milestone score! \n Choose a bonus:",
                 fontFamily: font,
                 fontSize: 26,
                 color: "0xFEDF22",
