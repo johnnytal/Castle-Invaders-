@@ -562,6 +562,10 @@ function level_end_modal(level) {
     
     button = true;
     
+    try{
+        interstitial.show();
+    } catch(e){}
+
     modal.createModal({
         type:"nextLevel",
         includeBackground: true,
@@ -743,10 +747,6 @@ function mile_stone(stone) {
 }
 
 function next_level(){
-    try{
-        interstitial.show();
-    } catch(e){}
-    
     clicks[1].play();
     music.play(); 
 
