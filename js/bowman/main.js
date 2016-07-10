@@ -17,8 +17,10 @@ var gameMain = function(game){
 gameMain.prototype = {
     create: function(){
         this.world.setBounds(0, 0, WIDTH, HEIGHT + 120); // extra height so arrows could fall back from the sky
-        bg = this.add.image(0, 0, 'bg');
+        bg = this.add.tileSprite(0, 0, 706, 398, 'bg');
         bg.alpha = 0.7;
+        var random = game.rnd.integerInRange(0,3);
+        bg.frame = random;
 
         ground = this.add.sprite(0, HEIGHT - 55, null); // alien will land here
         this.physics.enable(ground, Phaser.Physics.ARCADE);
@@ -41,9 +43,16 @@ gameMain.prototype = {
         sideU.body.setSize(WIDTH, 1);
         sideU.body.immovable = true;
         
-        castle = this.add.sprite(WIDTH/2 - 70, 280, "castle");
+        castle = this.add.sprite(WIDTH/2 - 70, HEIGHT - castle.height - 20, "castle");
         this.physics.enable(castle, Phaser.Physics.ARCADE);
         castle.body.immovable = true;
+        
+        thrusters1 = this.add.sprite(WIDTH/2 - 65, HEIGHT - castle.height + 30, "thruster");
+        thrusters2 = this.add.sprite(WIDTH/2 + 30, HEIGHT - castle.height + 30, "thruster");
+        thrusters1.animations.add('run');
+        thrusters1.animations.play('run', 10, true, false);
+        thrusters2.animations.add('run');
+        thrusters2.animations.play('run', 10, true, false);
 
         bow = this.add.sprite(WIDTH/2 - 10, 283, "bow");
         bow.anchor.set(0.5, 0.5);
@@ -112,11 +121,11 @@ gameMain.prototype = {
         exit_btn.alpha = 0.7;
         
         exit_btn.events.onInputOver.add(function(){ 
-            inst_btn.frame = 1;
+            exit_btn.frame = 1;
         }, this);
         
         exit_btn.events.onInputOut.add(function(){ 
-            inst_btn.frame = 0;
+            exit_btn.frame = 0;
         }, this);
         
         exit_btn.events.onInputDown.add(function(){ 
@@ -128,6 +137,18 @@ gameMain.prototype = {
         timer_add_enemy();
         timer_end_level();
 
+        try{
+            Cocoon.Ad.AdMob.configure({
+                android: { 
+                      interstitial:"ca-app-pub-9795366520625065/6274475030"
+                }
+            });
+            
+            interstitial = Cocoon.Ad.AdMob.createInterstitial();
+            interstitial.load();
+
+        } catch(e){}
+        
         screams = [ // scream sounds
             game.add.audio('sfxScream1'), game.add.audio('sfxScream2'),
             game.add.audio('sfxScream3'), game.add.audio('sfxScream4')
@@ -152,6 +173,8 @@ gameMain.prototype = {
     
     update: function(){   
         bow_and_arrow_updates();
+     
+        bg.tilePosition.y += 3;
         
         // collisions 
         game.physics.arcade.collide(ground, arrows, arrow_outOfBounds, null, this); // arrow hits ground
@@ -161,7 +184,7 @@ gameMain.prototype = {
         for (var i = 0; i < enemies.length; i++){
             if (enemies[i].isAlive){
                 enemies[i].update();
-                game.physics.arcade.collide(ground, enemies[i].enemy, null, null, this); // enemy hits ground
+              //  game.physics.arcade.collide(ground, enemies[i].enemy, null, null, this); // enemy hits ground
                 game.physics.arcade.overlap(arrows, enemies[i].enemy, arrow_hit_enemy, null, this); // arrow hits enemy
                 game.physics.arcade.collide(castle, enemies[i].enemy, enemy_hit_castle, null, this); // enemy hits castle
             }
@@ -177,7 +200,7 @@ gameMain.prototype = {
         }
         
         if (attr.gameScore > 1000 && !mileStones[0]){
-            mile_stone(1);
+            mile_stone(1);  
         }
         
         else if (attr.gameScore > 2500 && !mileStones[1]){
@@ -395,6 +418,7 @@ function bonus_outOfBounds(_bounds, _bonus){
 
 function timer_end_level(){
     // count the time to next level
+
     level_timer = game.time.events.loop(Phaser.Timer.SECOND, function(){
         if (time_left >= 1){   
             time_left--;
@@ -413,7 +437,7 @@ function timer_end_level(){
                 
                 attr.currentLevel++;
                 time_left = get_time_left();
-            
+
                 timeLabel.text = format_time(time_left);
                 timeLabel.fill = 'darkblue';
                 
@@ -589,7 +613,7 @@ function mile_stone(stone) {
     game.time.events.pause(level_timer);
     game.time.events.pause(enemy_timer);
 
-    button = true;
+    button = true; 
     
     modal.createModal({
         type:"mileStone",
@@ -718,11 +742,14 @@ function mile_stone(stone) {
    }   
 }
 
-
 function next_level(){
+    try{
+        interstitial.show();
+    } catch(e){}
+    
     clicks[1].play();
     music.play(); 
-    
+
     modal.hideModal('nextLevel');
     
     lvl_number.frame = (attr.currentLevel - 1);
@@ -749,10 +776,7 @@ function save_score(){ // get your score and save it to webstorge
 }
 
 function kill_everyone(){
-    //enemy_timer.kill();
-    
-    castle.kill(); 
-    
+
     for (var i = 0; i < enemies.length; i++){
         enemies[i].damage('noScore');
     }
@@ -842,8 +866,9 @@ function tween_time(time, color, object){
 function createClouds(){
     var cloud_to_create = game.rnd.integerInRange(1, 2);
     var time_to_next = game.rnd.integerInRange(7000, 14000);
-    var start_y = game.rnd.integerInRange(20, 200);
+    var start_y = game.rnd.integerInRange(10, 150);
     var velocity_x = game.rnd.integerInRange(-75, 75);
+    var velocity_y = game.rnd.integerInRange(5, 25);
     var cloud_alpha = game.rnd.integerInRange(3, 7);
     var scalingX = game.rnd.integerInRange(65, 95);
     var scalingY = game.rnd.integerInRange(65, 95);
@@ -853,6 +878,7 @@ function createClouds(){
     
     cloud = clouds.create(start_x ,start_y, 'cloud'+cloud_to_create);
     cloud.body.velocity.x = velocity_x;
+    cloud.body.velocity.y = velocity_y;
     cloud.alpha = '0.' + cloud_alpha;
     cloud.scale.set(scalingX / 100, scalingY / 100);
     cloud.body.immovable = true;

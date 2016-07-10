@@ -1,5 +1,5 @@
 Enemy = function (game, index, type, name, health, strength, speed, pts) {
-    var x = game.rnd.integerInRange(0, WIDTH); // random x point as starting point for the enemy 
+    var x = game.rnd.integerInRange(-100, WIDTH + 100); // random x point as starting point for the enemy 
     var y = -55;
 
     this.game = game;
@@ -13,14 +13,14 @@ Enemy = function (game, index, type, name, health, strength, speed, pts) {
     this.enemy = enemyGroup.create(x, y, name);
     this.enemy.index = index;
     this.enemy.anchor.set(0.5, 0.5);
-    this.enemy.body.velocity.y = speed;
+    this.enemy.body.velocity.y = speed * 2;
     
     this.health_bar = game.add.sprite(x, y - this.enemy.height, 'health_bar');
     this.health_bar.anchor.set(0.5, 0.5);
 
     var x_vel_max = Math.round(this.enemy.body.velocity.y / 2); // the enemy's x velocity is affected by its y velocity
     var x_vel_min = Math.round(this.enemy.body.velocity.y / 4);
-
+ //this.enemy.body.velocity.x = game.rnd.integerInRange(-x_vel_min, x_vel_max);  
     if ( this.enemy.body.x < castle.body.x + (castle.width / 2) ){
         this.enemy.body.velocity.x = game.rnd.integerInRange(x_vel_min, x_vel_max); 
     }
@@ -78,7 +78,7 @@ Enemy.prototype.update = function() {
     this.health_bar.y = this.enemy.y - this.enemy.height;
     
     // make enemy follow the castle
-    if ( this.enemy.body.x < castle.body.x + (castle.width / 2) ){
+    /*if ( this.enemy.body.x < castle.body.x + (castle.width / 2) ){
          this.enemy.body.velocity.x = Math.abs(this.enemy.body.velocity.x);
     }
     else if ( this.enemy.body.x > castle.body.x + (castle.width / 2) ){
@@ -86,5 +86,5 @@ Enemy.prototype.update = function() {
     }
     else{
         this.enemy.body.velocity.x = 0;
-    }
+    }*/
 };

@@ -40,7 +40,8 @@ preloader.prototype = {
         this.game.load.spritesheet("health_bar", "assets/images/health_bar.png", 40, 6);
         this.game.load.spritesheet("explosion","assets/images/explosion.png", 88 ,75);
         this.game.load.spritesheet("numbers","assets/images/numbers.png", 27 ,30);
-        
+        this.game.load.spritesheet("thruster","assets/images/thruster.png", 15 ,54);
+
         this.game.load.spritesheet("audioBtn","assets/images/audioBtn.png", 183 ,190);
         this.game.load.spritesheet("instBtn","assets/images/instBtn.png", 183 ,190);
         this.game.load.spritesheet("playBtn","assets/images/playBtn.png", 180 ,190);
