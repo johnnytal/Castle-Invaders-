@@ -48,27 +48,27 @@ preloader.prototype = {
         this.game.load.spritesheet("homeBtn","assets/images/homeBtn.png", 183 ,190);
         this.game.load.spritesheet("exit_btn","assets/images/exit_btn.png", 183 ,190);
 
-        this.game.load.audio('sfxClick1', 'assets/audio/switch1.mp3'); 
-        this.game.load.audio('sfxClick2', 'assets/audio/switch2.mp3'); 
-        this.game.load.audio('sfxScream1', 'assets/audio/scream1.mp3');
-        this.game.load.audio('sfxScream2', 'assets/audio/scream2.mp3');
-        this.game.load.audio('sfxScream3', 'assets/audio/scream3.mp3');
-        this.game.load.audio('sfxScream4', 'assets/audio/scream4.mp3');
-        this.game.load.audio('sfxShoot_h1', 'assets/audio/shoot_h1.mp3');
-        this.game.load.audio('sfxShoot_h2', 'assets/audio/shoot_h2.mp3');
-        this.game.load.audio('sfxShoot_w1', 'assets/audio/shoot_w1.mp3');
-        this.game.load.audio('sfxShoot_w2', 'assets/audio/shoot_w2.mp3');
+        this.game.load.audio('sfxClick1', 'assets/audio/switch1.ogg'); 
+        this.game.load.audio('sfxClick2', 'assets/audio/switch2.ogg'); 
+        this.game.load.audio('sfxScream1', 'assets/audio/scream1.ogg');
+        this.game.load.audio('sfxScream2', 'assets/audio/scream2.ogg');
+        this.game.load.audio('sfxScream3', 'assets/audio/scream3.ogg');
+        this.game.load.audio('sfxScream4', 'assets/audio/scream4.ogg');
+        this.game.load.audio('sfxShoot_h1', 'assets/audio/shoot_h1.ogg');
+        this.game.load.audio('sfxShoot_h2', 'assets/audio/shoot_h2.ogg');
+        this.game.load.audio('sfxShoot_w1', 'assets/audio/shoot_w1.ogg');
+        this.game.load.audio('sfxShoot_w2', 'assets/audio/shoot_w2.ogg');
 
-        this.game.load.audio('sfxMusic', 'assets/audio/dvorak_humoreske_7.mp3');
-        this.game.load.audio('sfxHitCastle', 'assets/audio/hitCastle.mp3');
-        this.game.load.audio('sfxMagic', 'assets/audio/magic.mp3');
-        this.game.load.audio('sfxOhyeah', 'assets/audio/oh_yeah.mp3'); 
-        this.game.load.audio('sfxbonusKill', 'assets/audio/bonusKill.mp3');
-        this.game.load.audio('sfxClock', 'assets/audio/clock.mp3');
-        this.game.load.audio('sfxExplode', 'assets/audio/explosion.mp3');
-        this.game.load.audio('sfxWhistle', 'assets/audio/whistle.mp3');
-        this.game.load.audio('sfxCookoo', 'assets/audio/cookoo.mp3');
-        this.game.load.audio('sfxTriangle', 'assets/audio/triangle.mp3');
+        this.game.load.audio('sfxMusic', 'assets/audio/dvorak_humoreske_7.ogg');
+        this.game.load.audio('sfxHitCastle', 'assets/audio/hitCastle.ogg');
+        this.game.load.audio('sfxMagic', 'assets/audio/magic.ogg');
+        this.game.load.audio('sfxOhyeah', 'assets/audio/oh_yeah.ogg'); 
+        this.game.load.audio('sfxbonusKill', 'assets/audio/bonusKill.ogg');
+        this.game.load.audio('sfxClock', 'assets/audio/clock.ogg');
+        this.game.load.audio('sfxExplode', 'assets/audio/explosion.ogg');
+        this.game.load.audio('sfxWhistle', 'assets/audio/whistle.ogg');
+        this.game.load.audio('sfxCookoo', 'assets/audio/cookoo.ogg');
+        this.game.load.audio('sfxTriangle', 'assets/audio/triangle.ogg');
     },
     
     create: function(){

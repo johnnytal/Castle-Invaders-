@@ -79,7 +79,7 @@ gameMain.prototype = {
         createClouds();
 
         castle_hp = CASTLE_MAX_HP;
-        attr.currentLevel = 1;
+        attr.currentLevel = 3;
         attr.gameScore = 0;
         
         scoreLabel = this.add.text(46, 17, String(attr.gameScore), {

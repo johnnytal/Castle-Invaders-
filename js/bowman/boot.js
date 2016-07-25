@@ -1,9 +1,10 @@
-window.onload = function(){
-    WIDTH = 706; HEIGHT = 398; // 16:9 ratio
-    
-    w = window.innerWidth * window.devicePixelRatio;
-    h = window.innerHeight * window.devicePixelRatio;
-    
+document.addEventListener("deviceready", start, false);
+//window.onload = start;
+
+function start(){
+    WIDTH = 706; 
+    HEIGHT = 398;
+
     game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, "");    
       
     game.state.add("Boot", boot);
@@ -20,12 +21,10 @@ var boot = function(game){};
   
 boot.prototype = {
     preload: function(){
-          this.game.load.audio('sfxMenu', 'assets/audio/Reggae_ident.mp3'); 
-          
+          this.game.load.audio('sfxMenu', 'assets/audio/Reggae_ident.ogg'); 
           this.game.load.image("loading", "assets/images/loading.png");
         
           this.game.load.spritesheet("bg","assets/images/bg.jpg", 720 ,398);
-          
           this.game.load.spritesheet("castle", "assets/images/tower.png", 140, 87);
     },
     create: function(){
@@ -38,8 +37,8 @@ boot.prototype = {
 
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-        this.scale.maxWidth = w;
-        this.scale.maxHeight = h;
+        this.scale.maxWidth = window.innerWidth * window.devicePixelRatio;
+        this.scale.maxHeight = window.innerHeight * window.devicePixelRatio;
         
         this.scale.pageAlignHorizontally = true;
         this.scale.forceOrientation(false, true);
@@ -47,6 +46,5 @@ boot.prototype = {
         this.scale.setScreenSize(true);
 
         game.state.start('Preloader');
-    
     }
 };
