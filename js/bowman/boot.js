@@ -1,11 +1,11 @@
-document.addEventListener("deviceready", start, false);
-//window.onload = start;
+//document.addEventListener("deviceready", start, false);
+window.onload = start;
 
 function start(){
     WIDTH = 706; 
     HEIGHT = 398;
 
-    game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, "");    
+    game = new Phaser.Game(WIDTH, HEIGHT, Phaser.CANVAS, "game");    
       
     game.state.add("Boot", boot);
     game.state.add("Preloader", preloader);
@@ -21,16 +21,16 @@ var boot = function(game){};
   
 boot.prototype = {
     preload: function(){
-          this.game.load.audio('sfxMenu', 'assets/audio/Reggae_ident.ogg'); 
-          this.game.load.image("loading", "assets/images/loading.png");
+          this.game.load.audio('sfxMenu', 'assets/invaders/audio/Reggae_ident.ogg'); 
+          this.game.load.image("loading", "assets/invaders/images/loading.png");
         
-          this.game.load.spritesheet("bg","assets/images/bg.jpg", 720 ,398);
-          this.game.load.spritesheet("castle", "assets/images/tower.png", 140, 87);
+          this.game.load.spritesheet("bg","assets/invaders/images/bg.jpg", 720 ,398);
+          this.game.load.spritesheet("castle", "assets/invaders/images/tower.png", 140, 87);
     },
     create: function(){
         game.stage.backgroundColor = '#B9CEC5';
         font = 'Seymour One';
-        var interstitial;
+        //var interstitial;
         
         menuSfx = game.add.audio('sfxMenu');
         menuSfx.play();

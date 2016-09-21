@@ -79,7 +79,7 @@ gameMain.prototype = {
         createClouds();
 
         castle_hp = CASTLE_MAX_HP;
-        attr.currentLevel = 3;
+        attr.currentLevel = 1;
         attr.gameScore = 0;
         
         scoreLabel = this.add.text(46, 17, String(attr.gameScore), {
@@ -137,7 +137,7 @@ gameMain.prototype = {
         timer_add_enemy();
         timer_end_level();
 
-        try{
+    /*    try{
             Cocoon.Ad.AdMob.configure({
                 android: { 
                       interstitial:"ca-app-pub-9795366520625065/6274475030"
@@ -147,7 +147,7 @@ gameMain.prototype = {
             interstitial = Cocoon.Ad.AdMob.createInterstitial();
             interstitial.load();
 
-        } catch(e){}
+        } catch(e){}*/
         
         screams = [ // scream sounds
             game.add.audio('sfxScream1'), game.add.audio('sfxScream2'),
@@ -562,9 +562,9 @@ function level_end_modal(level) {
     
     button = true;
     
-    try{
+   /* try{
         interstitial.show();
-    } catch(e){}
+    } catch(e){}*/
 
     modal.createModal({
         type:"nextLevel",
